@@ -97,6 +97,29 @@ async def average_ohlc(symbols: List[str]):
 
 @app.get("/get_company_financials")
 async def average_ohlc(ticker: str = "AAPL", source: str = "Morning star"):
+    """Return a list of dictionaries with all available financials for a given ticker and source.
+
+    INPUT: "AAPL", "Morning star"
+    OUTPUT:
+        [{"ticker": "AAPL",
+            “year”: “2022”
+                "financials": {
+                    "revenue": 394330000000,
+                    "gross_income": 170780000000,
+                    "ebitda": 130540000000,
+                    "income_tax": 14530000000
+                }
+            }, {
+                "ticker": "AAPL",
+                “year”: “2021”,
+                "financials": {
+                    "revenue": 365820000000,
+                    "gross_income": 152840000000,
+                    "ebitda": 120230000000,
+                    "income_tax": 9680000000
+                }
+            }]
+    """
     from src.parse_financials import find_local_pdf, parse_pdf_text
 
     try:

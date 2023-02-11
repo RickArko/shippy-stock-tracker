@@ -35,8 +35,9 @@ POLYGON_API_KEY=**********************
 
 ### Run Local API
 ```
-    python main.py
+    python main.py  # update data
     uvicorn src.app:app --port 5000 --host "0.0.0.0" --reload
+    python test.py  # test api
 ```
 
 When the API is running see `http://localhost:5000/docs` for swagger docs.
