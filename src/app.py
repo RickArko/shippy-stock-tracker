@@ -6,7 +6,7 @@ import requests
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from main import load_prices
+from main import load_prices, load_info
 from src.client import get_ticker_info
 
 URL_INFO = "https://api.polygon.io/v3/reference/tickers"
@@ -15,6 +15,15 @@ load_dotenv()
 app = FastAPI()
 
 PRICES = load_prices()
+
+dfinfo = load_info()
+
+dfinfo = dfinfo.sort_values("market_cap", ascending=False).reset_index(drop=True)
+dfinfo["firm_size"] = "mid_cap"
+dfinfo.loc[0:2,"firm_size"] = "large_cap"
+dfinfo.loc[(len(dfinfo) - 3):len(dfinfo),"firm_size"] = "small_cap"
+
+PRICES = PRICES.merge(dfinfo[["ticker", "market_cap", "firm_size", "total_employees"]], on="ticker", how="inner")
 
 
 @app.get("/")
@@ -99,3 +108,21 @@ async def average_ohlc(ticker: str = "AAPL", source: str = "Morning star"):
 
     resp = {"ticker": ticker, "source": source, "path": str(fname), "raw_text": t}
     return resp
+
+
+@app.get("/market_cap_rank_analytics/")
+async def details():
+    global PRICES
+
+    result_list = []
+
+    for cap, dfg in PRICES.groupby("firm_size"):
+        res = dict()
+        res["avg_marget_cap"] = dfg["market_cap"].mean()
+        res["avg_num_employees"] = dfg["total_employees"].mean()
+        res["avg_weekly_volume"] = dfg["volume"].mean()
+        result_list.append(res)
+
+    return {
+        "results": result_list
+    }

@@ -20,7 +20,7 @@ from src.client import CLIENT, get_ticker_info, get_ticker_prices
 DFTICKERS = pd.read_csv("src/data/tickers.csv")
 TICKERS = DFTICKERS["Ticker"].unique().tolist()
 FNAME_RESULTS = Path("src").joinpath("data").joinpath("tickers.snap.parquet")
-
+FNAME_INFO = Path("src").joinpath("data").joinpath("ticker-details.snap.parquet")
 
 def get_stock_df(client, ticker: str, start: str, end: str):
     r = CLIENT.get_aggs(ticker, 1, "day", start, end)
@@ -72,6 +72,10 @@ def load_prices():
     return pd.read_parquet(FNAME_RESULTS)
 
 
+def load_info():
+    return pd.read_parquet(FNAME_INFO)
+
+
 if __name__ == "__main__":
     main_start = time.time()
     logger.info("Begin Stock Data Refresh...")
@@ -98,8 +102,12 @@ if __name__ == "__main__":
 
     dates = pd.bdate_range(start=start_date, end=end_date).strftime("%Y-%m-%d").tolist()
 
+
     # Update stock details
-    update_stocks_info(TICKERS, sleep_seconds=20)
+    if FNAME_INFO.exists():
+        dfinfo = pd.read_parquet(FNAME_INFO)
+    else:
+        update_stocks_info(TICKERS, sleep_seconds=20)
 
     # Create a global list of tuples (ticker, date)
     # for each of these read required data then pop from the global list
