@@ -2,7 +2,7 @@ import os
 import requests
 import pandas as pd
 from dotenv import load_dotenv
-from polygon import RESTClient
+# from polygon import RESTClient  # removed this
 from typing import Dict
 
 load_dotenv()
