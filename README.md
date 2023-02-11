@@ -3,6 +3,8 @@ See [instructions](https://shippy.notion.site/shippy/Shippy-Take-Home-Assignment
 
 # Questions
 ## 1. Process Data from Stocks API (Polygon)
+        - [docs](https://polygon.io/docs/stocks/getting-started)
+        - [python-client](https://github.com/polygon-io/client-python)
 ## 2. Parse Documents
 ## 3. (bonus) API
 
@@ -33,5 +35,20 @@ POLYGON_API_KEY=**********************
 
 ### Run Local API
 ```
+    python main.py
     uvicorn src.app:app --port 5000 --host "0.0.0.0" --reload
+```
+
+When the API is running see `http://localhost:5000/docs` for swagger docs.
+
+
+Example post for average ohlc data.
+```
+    curl -X 'POST' \
+    'http://localhost:5000/average_ohlc' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '[
+    "AAPL", "F"
+    ]'
 ```

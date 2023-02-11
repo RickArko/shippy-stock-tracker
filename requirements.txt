@@ -1,6 +1,11 @@
 black
+# camelot-py[base]  # not compatible oob w/ windows (#todo:)
+# gdown    # for downloading files from google drive (#todo:)
 fastapi
+fastparquet
+loguru
 pandas
 python-dotenv
+PyPDF2
 requests
 uvicorn
