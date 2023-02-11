@@ -1,0 +1,6 @@
+black
+fastapi
+pandas
+python-dotenv
+requests
+uvicorn
