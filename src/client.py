@@ -7,7 +7,7 @@ from typing import Dict
 
 load_dotenv()
 API_KEY = os.environ.get("POLYGON_API_KEY")
-CLIENT = RESTClient(api_key=API_KEY)
+# CLIENT = RESTClient(api_key=API_KEY)
 
 URL_INFO = "https://api.polygon.io/v3/reference/tickers"
 URL_PRICE = "https://api.polygon.io/v1/open-close"
