@@ -15,20 +15,12 @@ from typing import Dict, List
 import pandas as pd
 from loguru import logger
 
-from src.client import CLIENT, get_ticker_info, get_ticker_prices
+from src.client import get_ticker_info, get_ticker_prices
 
 DFTICKERS = pd.read_csv("src/data/tickers.csv")
 TICKERS = DFTICKERS["Ticker"].unique().tolist()
 FNAME_RESULTS = Path("src").joinpath("data").joinpath("tickers.snap.parquet")
 FNAME_INFO = Path("src").joinpath("data").joinpath("ticker-details.snap.parquet")
-
-def get_stock_df(client, ticker: str, start: str, end: str):
-    r = CLIENT.get_aggs(ticker, 1, "day", start, end)
-    df = pd.DataFrame(r, index=[ticker])
-    info = get_ticker_info(ticker)
-    df["ticker"] = ticker
-    df["ds"] = pd.to_datetime(df["timestamp"] / 1_000, unit="s")
-    return df
 
 
 def get_ticker_date(ticker: str, date: str):
