@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
+from src.tickers import TICKERS
 
-TICKERS = pd.read_csv("src/data/tickers.csv")["Ticker"].unique().tolist()
 
 ENDPOINT = "http://localhost:5000/"
 

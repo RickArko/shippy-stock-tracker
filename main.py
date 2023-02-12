@@ -16,17 +16,10 @@ import pandas as pd
 from loguru import logger
 
 from src.client import get_ticker_info, get_ticker_prices
+from src.tickers import TICKERS
 
-DFTICKERS = pd.read_csv("src/data/tickers.csv")
-TICKERS = DFTICKERS["Ticker"].unique().tolist()
 FNAME_RESULTS = Path("src").joinpath("data").joinpath("tickers.snap.parquet")
 FNAME_INFO = Path("src").joinpath("data").joinpath("ticker-details.snap.parquet")
-
-
-def get_ticker_date(ticker: str, date: str):
-    info = get_ticker_info(ticker)
-    price = get_ticker_prices(ticker, date=date)
-    return
 
 
 def update_stocks_info(tickers: List[str], sleep_seconds: int = 20):
