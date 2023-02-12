@@ -28,7 +28,7 @@ See [instructions](https://shippy.notion.site/shippy/Shippy-Take-Home-Assignment
 
 
 #### Configure Environment
-Create local `.env` to hold api keys
+Create local `.env` to hold api keys **application won't work without this**
 ```
 POLYGON_API_KEY=**********************
 ```
@@ -52,4 +52,12 @@ Example post for average ohlc data.
     -d '[
     "AAPL", "F"
     ]'
+```
+
+
+
+## Dashboard
+To run a basic dashboard
+```
+    streamlit run dashboard.py
 ```

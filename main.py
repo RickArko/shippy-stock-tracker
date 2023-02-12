@@ -110,6 +110,7 @@ if __name__ == "__main__":
 
     new_prices = []
 
+    len(REQUIRED_UPDATE_LIST)
     while len(REQUIRED_UPDATE_LIST) > 0:
         for i, tup in enumerate(REQUIRED_UPDATE_LIST):
             ticker, date = tup
@@ -130,6 +131,8 @@ if __name__ == "__main__":
             )
             time.sleep(time_sleep_prices)
             REQUIRED_UPDATE_LIST.pop(i)
+            logger.debug(f"API Calls Remaining: {len(REQUIRED_UPDATE_LIST):,d}")
+
 
     if len(new_prices) > 0:
         dfnew = pd.DataFrame(new_prices)

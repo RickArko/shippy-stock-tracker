@@ -1,0 +1,12 @@
+name: shippy-env
+channels:
+  - conda-forge
+dependencies:
+  - camelot-py
+  - fastparquet
+  - loguru
+  - pandas
+  # - python=3.9.16
+  - python=3.8.10
+  - pip:
+    - black
