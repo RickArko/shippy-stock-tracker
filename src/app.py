@@ -95,42 +95,48 @@ async def average_ohlc(symbols: List[str]):
     return {"result": return_list}
 
 
-@app.get("/get_company_financials")
-async def average_ohlc(ticker: str = "AAPL", source: str = "Morning star"):
-    """Return a list of dictionaries with all available financials for a given ticker and source.
+# @app.get("/get_company_financials")
+# async def get_company_financials(ticker: str = "AAPL", source: str = "Morning star"):
+#     """Return a list of dictionaries with all available financials for a given ticker and source.
 
-    INPUT: "AAPL", "Morning star"
-    OUTPUT:
-        [{"ticker": "AAPL",
-            “year”: “2022”
-                "financials": {
-                    "revenue": 394330000000,
-                    "gross_income": 170780000000,
-                    "ebitda": 130540000000,
-                    "income_tax": 14530000000
-                }
-            }, {
-                "ticker": "AAPL",
-                “year”: “2021”,
-                "financials": {
-                    "revenue": 365820000000,
-                    "gross_income": 152840000000,
-                    "ebitda": 120230000000,
-                    "income_tax": 9680000000
-                }
-            }]
-    """
-    from src.parse_financials import find_local_pdf, parse_pdf_text
+#     INPUT: "AAPL", "Morning star"
+#     OUTPUT:
+#         [{"ticker": "AAPL",
+#             “year”: “2022”
+#                 "financials": {
+#                     "revenue": 394330000000,
+#                     "gross_income": 170780000000,
+#                     "ebitda": 130540000000,
+#                     "income_tax": 14530000000
+#                 }
+#             }, {
+#                 "ticker": "AAPL",
+#                 “year”: “2021”,
+#                 "financials": {
+#                     "revenue": 365820000000,
+#                     "gross_income": 152840000000,
+#                     "ebitda": 120230000000,
+#                     "income_tax": 9680000000
+#                 }
+#             }]
+#     """
+#     from src.camelot_parser import parse_financials, summarise_financials
+#     from src.parse_financials import find_local_pdf, parse_pdf_text
 
-    try:
-        fname = find_local_pdf(ticker, source)
-    except ValueError:
-        return {"error": f"{ticker} not found by {source}"}
+#     try:
+#         fname = find_local_pdf(ticker, source)
+#     except ValueError:
+#         return {"error": f"{ticker} not found by {source}"}
 
-    t = parse_pdf_text(fname)
+#     t = parse_pdf_text(fname)
+#     dffinancials = parse_financials(source, path=fname)
+#     summary_dict = summarise_financials(dffinancials)
 
-    resp = {"ticker": ticker, "source": source, "path": str(fname), "raw_text": t}
-    return resp
+#     resp = {
+#         "ticker": ticker,
+#         "source": source,
+#         "summary": summary_dict}
+#     return resp
 
 
 @app.get("/market_cap_rank_analytics/")

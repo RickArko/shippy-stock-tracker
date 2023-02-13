@@ -11,39 +11,14 @@ The parser should be able to handle the following:
     - different number of years
     - time frequency (quarterly, monthly, etc.)
 
+# Starter Workflow
+1. Due to time constraints and machine and version contraints not everything will work out of the box in the api
+1. Installed a separate conda env on a linux machine
+1. Wrote  functions to extract a common financial dataframe for the examples provided
+1. Assuming "Sources" always structure their reports the same the functions will work for any each ticker.
+1. The parser can be easily extended to incorporate a new source.
+1. Eventually I'd want to add more sources and build up a document database of financial pdfs, but this illustrates the basic idea.
+1. Going to comment the financial endpoint since it doesn't currently work with fastapi, but it'd only take the time and motivation to make everything work, going to leave that as a future exercise
 
-## Possible Workflow
-  - Determine if image or text pdf
-      - image based will require some sort of `ocr` will not attempt to handle this yet
-  
-  - For a text based pdf plan to use [camelot](https://camelot-py.readthedocs.io/en/master/)
-      - designed particularly for tabular data
-      - non-trivial to install - hard conflicts with api libraries
-          - Describe installation (#todo:)
-              - install [ghostscript](https://ghostscript.com/releases/gsdnld.html)
-              - install [camelot](https://camelot-py.readthedocs.io/en/master/user/install.html#pip)
-      - there are a lot of different options to configure camelot that will require a large # of pdfs to fine-tune optimal parameters
-          - which parser `Lattice` or `Stream`
-              - Lattice looks for lines on a page to identify a table
-              - Stream looks for whitespaces between words
 
-Pseduo-code:
-
-```
-    # for given ticker/source - look for local pdf
-    ticker = "AAPL"
-    source = "Morning Star"
-
-    import camelot
-    pdfpath = find_local_pdf(ticker, source)
-
-    pdf = camelot.read_pdf(pdfpath) # return list of tables found
-
-    results = []
-    for table in pdf:
-       df = table.df  # extract dataframe
-       sum = summarise_financials(df)
-       results.append(sum)
-
-    dfsummary = pd.conact(results, ignore_index=True)
-```
+![image](src\data\pdf-to-table.PNG)
