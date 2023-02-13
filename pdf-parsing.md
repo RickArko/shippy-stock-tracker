@@ -20,5 +20,6 @@ The parser should be able to handle the following:
 1. Eventually I'd want to add more sources and build up a document database of financial pdfs, but this illustrates the basic idea.
 1. Going to comment the financial endpoint since it doesn't currently work with fastapi, but it'd only take the time and motivation to make everything work, going to leave that as a future exercise
 
-
-![image](src\data\pdf-to-table.PNG)
+# Example Results 
+See: (src\data\pdf-to-table.PNG)
+![example-results](src\data\pdf-to-table.PNG)
