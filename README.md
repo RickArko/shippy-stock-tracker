@@ -55,7 +55,6 @@ Example post for average ohlc data.
 ```
 
 
-
 ## Dashboard
 To run a basic dashboard
 ```
