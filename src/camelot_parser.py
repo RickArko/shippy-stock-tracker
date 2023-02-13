@@ -5,9 +5,9 @@ import camelot
 import pandas as pd
 from src.parse_financials import find_local_pdf
 
+
 def set_first_row_columns(df) -> pd.DataFrame:
-    """Set first row as column names then drop.
-    """
+    """Set first row as column names then drop."""
     df.columns = df.iloc[0]
     df = df.iloc[1:, :]
     return df
@@ -31,7 +31,7 @@ def parse_jpm(path: Union[Path, str]):
         df = df.head(1)
         df = df.rename(columns={"": "type"})
         df.index = [i]
-        df = df.loc[:,~df.columns.duplicated()]# remove duplicate cols
+        df = df.loc[:, ~df.columns.duplicated()]  # remove duplicate cols
         df = df.set_index("type")
         df.index.name = None
         r.append(df)
@@ -42,8 +42,7 @@ def parse_jpm(path: Union[Path, str]):
 
 
 def parse_financials(source: str, path: Union[Path, str]):
-    """Parse all financial tables from pdf source and return dataframe.
-    """
+    """Parse all financial tables from pdf source and return dataframe."""
     availble_sources = ("Morning Star", "JPM")
     if source not in availble_sources:
         raise ValueError(f"Source must be one of {availble_sources}")
@@ -57,8 +56,7 @@ def parse_financials(source: str, path: Union[Path, str]):
 
 
 def summarise_financials(df: pd.DataFrame) -> Dict:
-    """Create a nested dictionary of financials summary by year.
-    """
+    """Create a nested dictionary of financials summary by year."""
     summary_dict = {}
     for year in df.columns:
         year_dict = {}

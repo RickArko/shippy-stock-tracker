@@ -87,7 +87,6 @@ if __name__ == "__main__":
 
     dates = pd.bdate_range(start=start_date, end=end_date).strftime("%Y-%m-%d").tolist()
 
-
     # Update stock details
     if FNAME_INFO.exists():
         dfinfo = pd.read_parquet(FNAME_INFO)
@@ -112,20 +111,15 @@ if __name__ == "__main__":
                 price_dict = get_ticker_prices(ticker, date=date)
                 new_prices.append(price_dict)
             except Exception as e:
-                logger.error(
-                    f"Error getting ticker price for {ticker} on {date} sleeping for 100 seconds."
-                )
+                logger.error(f"Error getting ticker price for {ticker} on {date} sleeping for 100 seconds.")
                 logger.error(f"Error: {e}")
                 time.sleep(60)
                 continue
 
-            logger.info(
-                f"Finished {date} for {ticker} sleeping {time_sleep_prices} seconds..."
-            )
+            logger.info(f"Finished {date} for {ticker} sleeping {time_sleep_prices} seconds...")
             time.sleep(time_sleep_prices)
             REQUIRED_UPDATE_LIST.pop(i)
             logger.debug(f"API Calls Remaining: {len(REQUIRED_UPDATE_LIST):,d}")
-
 
     if len(new_prices) > 0:
         dfnew = pd.DataFrame(new_prices)

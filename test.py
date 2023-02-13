@@ -20,11 +20,10 @@ def test_details(ticker):
 
 
 if __name__ == "__main__":
-
     # test_details("AAPL")
 
     resp1 = requests.post(ENDPOINT1, json=TICKERS)
-    resp2 = requests.get(ENDPOINT2) #, json={"ticker": "AAPL", "source": "Morning star"})
+    resp2 = requests.get(ENDPOINT2)  # , json={"ticker": "AAPL", "source": "Morning star"})
     resp3 = requests.get(ENDPOINT3)
 
     print(f"First Report at {ENDPOINT1} returns: {resp1.json()}")

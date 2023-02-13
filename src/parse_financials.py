@@ -18,9 +18,7 @@ def find_local_pdf(ticker: str, source: str) -> Path:
     data_dir = Path("src").joinpath("data")
     pdfs = list(data_dir.glob("*.pdf"))
 
-    matching_financials = [
-        f for f in pdfs if (ticker in f.name) and (source in f.name.lower())
-    ]
+    matching_financials = [f for f in pdfs if (ticker in f.name) and (source in f.name.lower())]
 
     if len(matching_financials) == 0:
         # TODO: Retreive from elsewhere
@@ -48,26 +46,24 @@ def parse_pdf_text(fname: Path) -> str:
 
 
 def get_financials(TEXT: str, header: str = "Financials"):
-    """Extract financials from text as string.
-    """
+    """Extract financials from text as string."""
     start = TEXT.find(header)
     return TEXT[start:]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ticker = "AAPL"
     source = "Morning Star"
     source = "jpm"
     pdfpath = find_local_pdf(ticker, source)
     TEXT = parse_pdf_text(pdfpath)
 
-
     # YEARS = (2018, 2019, 2020, 2021, 2022)
-    
+
     # for y in YEARS:
     #     result = TEXT.find(str(y))
 
     # print(get_financials(TEXT, "Financials"))
-    
+
     # BODY = get_financials(TEXT, "Financials")
     # BODY[]

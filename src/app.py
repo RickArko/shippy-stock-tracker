@@ -20,8 +20,8 @@ dfinfo = load_info()
 
 dfinfo = dfinfo.sort_values("market_cap", ascending=False).reset_index(drop=True)
 dfinfo["firm_size"] = "mid_cap"
-dfinfo.loc[0:2,"firm_size"] = "large_cap"
-dfinfo.loc[(len(dfinfo) - 3):len(dfinfo),"firm_size"] = "small_cap"
+dfinfo.loc[0:2, "firm_size"] = "large_cap"
+dfinfo.loc[(len(dfinfo) - 3) : len(dfinfo), "firm_size"] = "small_cap"
 
 PRICES = PRICES.merge(dfinfo[["ticker", "market_cap", "firm_size", "total_employees"]], on="ticker", how="inner")
 
@@ -152,6 +152,4 @@ async def details():
         res["avg_weekly_volume"] = dfg["volume"].mean()
         result_list.append(res)
 
-    return {
-        "results": result_list
-    }
+    return {"results": result_list}
